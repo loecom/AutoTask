@@ -39,7 +39,14 @@ jobs:
           
     - name: Grant execute permission for gradlew  
       run: chmod +x gradlew  
-        
+    - name: Create local.properties  
+      run: |  
+        echo "sdk.dir=$ANDROID_HOME" > local.properties  
+        echo "storeFile=$HOME/.android/debug.keystore" >> local.properties  
+        echo "storePassword=android" >> local.properties  
+        echo "keyAlias=androiddebugkey" >> local.properties  
+        echo "keyPassword=android" >> local.properties
+    
     - name: Build debug APK (without signing)  
       run: ./gradlew assembleDebug -Pandroid.injected.signing.store.file=$HOME/.android/debug.keystore -Pandroid.injected.signing.store.password=android -Pandroid.injected.signing.key.alias=androiddebugkey -Pandroid.injected.signing.key.password=android  
         
